@@ -62,8 +62,7 @@ def home_page():
     {'email': 'zhur85@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
     {'email': 'anikarain1991@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
     {'email': 'kotapesik@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'acccko@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'hnalina@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},]
+    {'email': 'acccko@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},]
     res = []
     for i in lst:
         p = Profile(**i)
