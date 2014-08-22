@@ -1,1 +1,1 @@
-web: python csps.py
+web: python app.py
