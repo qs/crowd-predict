@@ -33,7 +33,7 @@ class Application(tornado.web.Application):
             self.database = self.con[urlparse(MONGO_URL).path[1:]]
         else:
             self.con = Connection('localhost', 27017)
-            self.database = self.con["lastwords"]
+            self.database = self.con["crowdpred"]
 
 
 class MainHandler(tornado.web.RequestHandler):
