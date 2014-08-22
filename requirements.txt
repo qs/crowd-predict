@@ -3,3 +3,4 @@ Werkzeug==0.8.3
 wsgiref==0.1.2
 pymongo
 tornado
+bson
