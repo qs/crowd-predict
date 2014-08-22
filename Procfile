@@ -1,1 +1,1 @@
-web: gunicorn -k egg:gunicorn#tornado --bind=0.0.0.0:$PORT app
+web: gunicorn flask-job-board:app -b "0.0.0.0:$PORT"
