@@ -7,6 +7,7 @@ from flask.ext.gravatar import Gravatar
 from mongoengine import connect
 
 import settings
+from models import *
 
 
 app = Flask(__name__)
