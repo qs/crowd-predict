@@ -44,7 +44,7 @@ def events_page():
     return render_template('events.html', events=events)
 
 @app.route("/event/<event_key>/")
-def events_page(event_key, methods=['GET', 'POST']):
+def event_page(event_key, methods=['GET', 'POST']):
     ''' event data '''
     if request.method == 'POST':  # updating prediction
         profile = get_current_profile()
