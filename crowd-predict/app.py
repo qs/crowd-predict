@@ -63,11 +63,9 @@ def home_page():
     {'email': 'anikarain1991@gmail.com'},
     {'email': 'kotapesik@gmail.com'},
     {'email': 'acccko@gmail.com'}, ]
-    res = []
     for i in lst:
         p = Profile(**i)
-        res.append(p)
-    Profile.insert(res)
+        p.save()
     return redirect(url_for('events_page'))
 
 @app.route("/events/")
