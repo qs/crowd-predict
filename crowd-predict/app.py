@@ -1,15 +1,13 @@
 import os
-from datetime import datetime
 from urlparse import urlparse
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask.ext.seasurf import SeaSurf
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.gravatar import Gravatar
-from functools import wraps
+from mongoengine import connect
 
 import settings
 
-from mongoengine import connect, Document, StringField, EmailField, DateTimeField, URLField
 
 app = Flask(__name__)
 app.config.from_object(settings)
@@ -28,18 +26,13 @@ connect(database.path[1:],
 
 #--------------------------------------------------------
 
-class Event(Document):
-    title = StringField(required=True)
-    dt = DateTimeField(required=True)
-    close_dt = DateTimeField(required=True)
-    finish_dt = DateTimeField(required=True)
-
-    meta = {
-        'ordering': ['-dt']
-    }
 
 
 @app.route("/")
-def home():
+def home_page():
+    return redirect(url_for('events_page'))
+
+@app.route("/events/")
+def events_page():
     events = Event.objects.all()
     return render_template('events.html', events=events)
