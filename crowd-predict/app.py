@@ -36,6 +36,38 @@ def get_current_profile():
 @app.route("/")
 def home_page():
     ''' redirects to event page '''
+    lst = [{'email': 'shden5663@mail.ru'},
+    {'email': 'anon1@example.com'},
+    {'email': 'anon2@example.com'},
+    {'email': 'anon3@example.com'},
+    {'email': 'rom.sheulov@gmail.com'},
+    {'email': 'fun@mail.ru'},
+    {'email': 'polinashekleina555@gmail.com'},
+    {'email': 'andreypalshin@gmail.com'},
+    {'email': 'maxigen4@gmail.com'},
+    {'email': 'regmail92@mail.ru'},
+    {'email': 'nikikita@mail.ru'},
+    {'email': 'soloha_vladimir@hotmail.com'},
+    {'email': 'silyakov@gmail.com'},
+    {'email': 'xakonde@gmail.com'},
+    {'email': 'mialerxd@gmail.com'},
+    {'email': 'zaharoffv@inbox.ru'},
+    {'email': 'yndx.kroniker@yandex.ru'},
+    {'email': 'a.aysurarova@gmail.com'},
+    {'email': 'vladimir.diht@yandex.ru'},
+    {'email': 'annagrenn@gmail.com'},
+    {'email': 'anon4@example.com'},
+    {'email': 'whoosh.s@gmail.com'},
+    {'email': 'commonica@yandex.ru'},
+    {'email': 'zhur85@gmail.com'},
+    {'email': 'anikarain1991@gmail.com'},
+    {'email': 'kotapesik@gmail.com'},
+    {'email': 'acccko@gmail.com'}, ]
+    res = []
+    for i in lst:
+        p = Profile(**i)
+        res.append(p)
+    Profile.insert(res)
     return redirect(url_for('events_page'))
 
 @app.route("/events/")
