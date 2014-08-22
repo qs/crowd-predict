@@ -1,1 +1,1 @@
-web: gunicorn app -b "0.0.0.0:$PORT"
+web: gunicorn crowd-pred:app -b "0.0.0.0:$PORT"
