@@ -12,7 +12,7 @@ class Event(Document):
 
 class Profile(Document):
     email = EmailField(required=True, primary_key=True)
-    dt = DateTimeField(required=True)
+    dt = DateTimeField()
 
 
 class ProfileEvent(Document):
