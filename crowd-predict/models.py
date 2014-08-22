@@ -4,7 +4,7 @@ from mongoengine import Document, StringField, EmailField, DateTimeField, ListFi
 class Event(Document):
     event_key = StringField(required=True, primary_key=True)
     title = StringField(required=True)
-    avail_answers = ListField()
+    available_answers = ListField()
     dt = DateTimeField(required=True)
     close_dt = DateTimeField(required=True)
     finish_dt = DateTimeField(required=True)
