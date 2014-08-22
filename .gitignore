@@ -52,4 +52,7 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+<<<<<<< HEAD
 .idea/
+=======
+>>>>>>> eb9216681488bbac4929c8e4634c41cda8ed8365
