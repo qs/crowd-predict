@@ -36,36 +36,39 @@ def get_current_profile():
 @app.route("/")
 def home_page():
     ''' redirects to event page '''
-    lst = [{'email': 'shden5663@mail.ru'},
-    {'email': 'anon1@example.com'},
-    {'email': 'anon2@example.com'},
-    {'email': 'anon3@example.com'},
-    {'email': 'rom.sheulov@gmail.com'},
-    {'email': 'fun@mail.ru'},
-    {'email': 'polinashekleina555@gmail.com'},
-    {'email': 'andreypalshin@gmail.com'},
-    {'email': 'maxigen4@gmail.com'},
-    {'email': 'regmail92@mail.ru'},
-    {'email': 'nikikita@mail.ru'},
-    {'email': 'soloha_vladimir@hotmail.com'},
-    {'email': 'silyakov@gmail.com'},
-    {'email': 'xakonde@gmail.com'},
-    {'email': 'mialerxd@gmail.com'},
-    {'email': 'zaharoffv@inbox.ru'},
-    {'email': 'yndx.kroniker@yandex.ru'},
-    {'email': 'a.aysurarova@gmail.com'},
-    {'email': 'vladimir.diht@yandex.ru'},
-    {'email': 'annagrenn@gmail.com'},
-    {'email': 'anon4@example.com'},
-    {'email': 'whoosh.s@gmail.com'},
-    {'email': 'commonica@yandex.ru'},
-    {'email': 'zhur85@gmail.com'},
-    {'email': 'anikarain1991@gmail.com'},
-    {'email': 'kotapesik@gmail.com'},
-    {'email': 'acccko@gmail.com'}, ]
+    lst = [{'shden5663@mail.ru':[], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'rom.sheulov@gmail.com': [u'REES46', u'schalarm', u'OPPI'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'fun@mail.ru': [u'OPPI', u'schalarm', u'On air'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'1': [u'3D MMM', u'æMind Manipulus', u'3D 2Phone', u'GadjetHolder', u'BeHealthier'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'polinashekleina555@gmail.com': [u'BeHealthier', u'3D MMM', u'æMind Manipulus', u'GadjetHolder', u'CardiWear'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'andreypalshin@gmail.com': [u'3D MMM', u'3D 2Phone', u'æMind Manipulus', u'GadjetHolder', u'BeHealthier'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'maxigen4@gmail.com': [u'3D MMM', u'3D 2Phone', u'GadjetHolder', u'CardiWear', u'лагранжиан стандартной модели для чайников'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'regmail92@mail.ru': [u'3D MMM', u'3D 2Phone', u'BeHealthier', u'On air', u'GadjetHolder'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'nikikita@mail.ru': [u'æMind Manipulus', u'Биологи', u'Crowd Predicts'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'soloha_vladimir@hotmail.com': [u'schalarm', u'GadjetHolder', u'Crowd Predicts', u'æMind Manipulus'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'silyakov@gmail.com': [u'CardiWear', u'BeHealthier', u'schalarm', u'æMind Manipulus'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'xakonde@gmail.com': [u'æMind Manipulus', u'CardiWear', u'3D 2Phone', u'On Air', u'Раскраска котиков'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'mialerxd@gmail.com': [u'æMind Manipulus', u'CardiWear', u'Crowd Predicts'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'zaharoffv@inbox.ru': [u'GadjetHolder', u'3D MMM', u'CardiWear', u'æMind Manipulus'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'yndx.kroniker@yandex.ru': [u'On Air', u'GadjetHolder', u'3D 2Phone', u'æMind Manipulus'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'a.aysurarova@gmail.com': [u'CardiWear', u'BeHealthier', u'æMind Manipulus'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'2': [u'CardiWear', u'Раскраска котиков', u'æMind Manipulus', u'GadjetHolder', u'On Air'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'vladimir.diht@yandex.ru': [u'æMind Manipulus', u'CardiWear', u'Раскраска котиков'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'annagrenn@gmail.com': [u'æMind Manipulus', u'On Air', u'лагранжиан стандартной модели для чайников'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'3': [u'CardiWear', u'SpectTRIK'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'4': [u'GadjetHolder', u'CardiWear', u'BeHealthier'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'whoosh.s@gmail.com': [u'SunSeat', u'GadjetHolder', u'CardiWear'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'commonica@yandex.ru': [u'CardiWear', u'3D 2Phone', u'REES46', u'OPPI', u'On Air'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'zhur85@gmail.com': [u'REES46', u'CardiWear', u'BeHealthier', u'On Air', u'æMind Manipulus'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'anikarain1991@gmail.com': [u'GadjetHolder', u'æMind Manipulus'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'kotapesik@gmail.com': [u'лагранжиан стандартной модели для чайников', u'æMind Manipulus', u'GadjetHolder', u'SpectTRIK', u'CardiWear'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},
+    {'acccko@gmail.com': [u'CardiWear', u'schalarm', u'3D MMM', u'Crowd Predicts', u'лагранжиан стандартной модели для чайников'], "_types" : [ "Document", "EventProfile" ], "_cls" : "EventProfile"},]
     for i in lst:
-        p = Profile(**i)
+        p = ProfileEvent(**i)
         p.save()
+    ProfileEvent.insert(res)
+
+
     return redirect(url_for('events_page'))
 
 @app.route("/events/")
