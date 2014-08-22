@@ -36,39 +36,6 @@ def get_current_profile():
 @app.route("/")
 def home_page():
     ''' redirects to event page '''
-    lst = [{'email': 'shden5663@mail.ru', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'anon1@example.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'anon2@example.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'anon3@example.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'rom.sheulov@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'fun@mail.ru', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'polinashekleina555@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'andreypalshin@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'maxigen4@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'regmail92@mail.ru', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'nikikita@mail.ru', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'soloha_vladimir@hotmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'silyakov@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'xakonde@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'mialerxd@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'zaharoffv@inbox.ru', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'yndx.kroniker@yandex.ru', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'a.aysurarova@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'vladimir.diht@yandex.ru', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'annagrenn@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'anon4@example.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'whoosh.s@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'commonica@yandex.ru', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'zhur85@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'anikarain1991@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'kotapesik@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},
-    {'email': 'acccko@gmail.com', "_types" : [ "Document", "Profile" ], "_cls" : "Profile"},]
-    res = []
-    for i in lst:
-        p = Profile(**i)
-        res.append(p)
-    Profile.insert(res)
-
     return redirect(url_for('events_page'))
 
 @app.route("/events/")
