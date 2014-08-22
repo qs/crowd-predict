@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Событие: {{ event.title }}{% endblock %}
+
+{% block content %}
+<h3> Событие: {{ event.title }} </h3>
+<h4> Варианты исхода события </h4>
+{% for aa in event.avail_answers %}
+      {{ aa }},
+{% endfor %}
+
+<h4> История голосований </h4>
+<ul>
+    {% for pe in profile_events %}
+      <li>{{ pe.profile.email }} answers: {{ pe.profile.answers }}</li>
+    {% endfor %}
+
+</ul>
+{% endblock %}

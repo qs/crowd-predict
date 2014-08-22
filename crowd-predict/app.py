@@ -1,4 +1,5 @@
 import os
+from cgi import escape
 from urlparse import urlparse
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask.ext.seasurf import SeaSurf
@@ -25,15 +26,31 @@ connect(database.path[1:],
         username=database.username,
         password=database.password)
 
-#--------------------------------------------------------
 
+def get_current_profile():
+    profile = Profile.objects(email='acccko@gmail.com').first()
+    return profile
 
 
 @app.route("/")
 def home_page():
+    ''' redirects to event page '''
     return redirect(url_for('events_page'))
 
 @app.route("/events/")
 def events_page():
+    ''' list of events '''
     events = Event.objects.all()
     return render_template('events.html', events=events)
+
+@app.route("/event/<event_key>/")
+def events_page(event_key, methods=['GET', 'POST']):
+    ''' event data '''
+    if request.method == 'POST':  # updating prediction
+        profile = get_current_profile()
+        return redirect(url_for('events_page', event_key=event_key))
+    else:
+        event_key = escape(event_key)
+        event = Event.objects(event_key=event_key).first()
+        profile_events = ProfileEvent.objects.filter(event=event_key)
+        return render_template('event.html', event=event, profile_events=profile_events)
