@@ -2,9 +2,9 @@ import os
 from datetime import datetime
 from urlparse import urlparse
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from flaskext.seasurf import SeaSurf
-from flaskext.bcrypt import Bcrypt
-from flaskext.gravatar import Gravatar
+from flask.ext.seasurf import SeaSurf
+from flask.ext.bcrypt import Bcrypt
+from flask.ext.gravatar import Gravatar
 from functools import wraps
 
 import settings
