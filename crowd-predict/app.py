@@ -8,6 +8,7 @@ from flask.ext.seasurf import SeaSurf
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.gravatar import Gravatar
 from mongoengine import connect
+import json
 
 import settings
 from models import *
@@ -59,4 +60,4 @@ def event_page(event_key, methods=[u'GET', 'POST']):
         for pe in profile_events:
             for a in pe.answers:
                 cntr[a] += 1
-        return render_template('event.html', event=event, profile_events=profile_events, answers_stat=dict(cntr))
+        return render_template('event.html', event=event, profile_events=profile_events, answers_stat=json.dumps(dict(cntr)))
