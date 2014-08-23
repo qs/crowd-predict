@@ -77,4 +77,4 @@ def event_api_v1(event_key):
             cntr[a] += 1
     answers_stat = [{'answer': k, 'score': v} for k,v in dict(cntr).items()]
 
-    return json.dumps(answers_stat)
+    return json.dumps(answers_stat, ensure_ascii=False).encode('utf8')
