@@ -165,14 +165,9 @@ def event_page(event_key):
         event_key = escape(event_key)
         event = Event.objects(event_key=event_key).first()
         profile = get_current_profile()
-        profile_events = ProfileEvent.objects.filter(event=event_key)
-        cntr = Counter()
-        for pe in profile_events:
-            for a in pe.answers:
-                cntr[a] += 1
-        answers_stat = [{'answer': k, 'score': v} for k,v in dict(cntr).items()]
+        profile_events = ProfileEvent.objects.filter(event=event_key, profile=profile)
 
-        return render_template('event.html', event=event, profile_events=profile_events, session=session)
+        return render_template('event.html', event=event, profile_events=profile_events)
 
 
 @app.route("/event/<event_key>/edit", methods=[u'GET', 'POST'])
