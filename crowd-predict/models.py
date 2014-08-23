@@ -1,4 +1,4 @@
-from mongoengine import Document, StringField, EmailField, DateTimeField, ListField, ReferenceField
+from mongoengine import Document, StringField, EmailField, DateTimeField, ListField, ReferenceField, IntField
 
 
 class Event(Document):
@@ -8,6 +8,9 @@ class Event(Document):
     dt = DateTimeField(required=True)
     close_dt = DateTimeField(required=True)
     finish_dt = DateTimeField(required=True)
+    author = ReferenceField('Profile', dbref=True)
+    correct_answers = ListField()
+    answers_max = IntField(required=True, default=5)
 
 
 class Profile(Document):
@@ -20,3 +23,4 @@ class ProfileEvent(Document):
     answers = ListField()
     profile = ReferenceField('Profile', dbref=True)
     event = ReferenceField('Event', dbref=True)
+    dt = DateTimeField(required=True)

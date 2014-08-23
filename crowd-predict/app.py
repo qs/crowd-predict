@@ -90,7 +90,6 @@ def requires_auth(f):
 
 def get_current_profile():
     profile = Profile.objects(email='acccko@gmail.com').first()
-    session['username'] = profile.email
     return profile
 
 
@@ -115,7 +114,7 @@ def event_new_page():
         event_key = form.event_key.data
         title = form.title.data
         available_answers = form.available_answers.data
-        available_answers = available_answers.split("\n")
+        available_answers = [aa.replace('\r', '') for aa in available_answers.split("\n")]
         event = Event(event_key=event_key, title=title, available_answers=available_answers)
         event.dt = datetime.now()
         event.finish_dt = datetime.now() + timedelta(days=7)
@@ -126,16 +125,23 @@ def event_new_page():
         return render_template('event-new.html', form=form, session=session)
 
 
+@requires_auth
 @app.route("/event/<event_key>/", methods=['GET', 'POST'])
 def event_page(event_key):
     ''' event data '''
     if request.method == 'POST':  # updating prediction
+        event_key = escape(event_key)
+        event = Event.objects(event_key=event_key).first()
+        data = request.values.get('prof_ans_hid')
+        answers = list(set([a.replace('\r', '') for a in data.split('\n')]))
         profile = get_current_profile()
-        pe = ProfileEvent()
-        return redirect(url_for('events_page', event_key=event_key))
+        pe = ProfileEvent(event=event, answers=answers, profile=profile, dt=datetime.now())
+        pe.save()
+        return redirect(url_for('event_page', event_key=event_key))
     else:
         event_key = escape(event_key)
         event = Event.objects(event_key=event_key).first()
+        profile = get_current_profile()
         profile_events = ProfileEvent.objects.filter(event=event_key)
         cntr = Counter()
         for pe in profile_events:
@@ -149,9 +155,9 @@ def event_page(event_key):
 @app.route("/event/<event_key>/edit", methods=[u'GET', 'POST'])
 def event_edit_page(event_key):
     ''' event editing'''
-    if request.method == 'POST':  # updating prediction
+    if request.method == 'POST':  # updating event
         profile = get_current_profile()
-        return redirect(url_for('events_page', event_key=event_key))
+        return redirect(url_for('event_page', event_key=event_key))
     else:  # show forms
         event_key = escape(event_key)
         event = Event.objects(event_key=event_key).first()

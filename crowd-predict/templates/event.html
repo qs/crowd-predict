@@ -6,82 +6,64 @@
 <h3> Событие: {{ event.title }} </h3>
 <h4> Варианты исхода события </h4>
 {% for aa in event.available_answers %}
-      {{ aa }},
+    <li><a href="#" role="button" class="av_ans">{{ aa }}</a></li>
 {% endfor %}
+
+<h4> Ваш вариант </h4>
+<p>Чтобы перевыбрать прогноз, кликайте на варианты выше</p>
+<p>Доступно вариантов:</p>
+    <div class="col-xs-1">
+      <input class="form-control" name="ap_left" id="ap_left" type="text" value="{{ event.answers_max }}" disabled>
+    </div>
+<br /><br />
+
+<form class="form-horizontal" role="form" method="POST" action="/event/{{ event.event_key }}/">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Ваши варианты:</label>
+    <div class="col-xs-4">
+      <textarea class="form-control" name="prof_ans" id="prof_ans" type="text" disabled cols="10" rows="6"></textarea>
+    </div>
+  </div>
+    <input type="hidden" id="prof_ans_hid" name="prof_ans_hid" class="btn btn-default" value="">
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" id="ans_action" name="ans_action" class="btn btn-default" value="Обновить прогноз">
+      <button id="clear_action" name="clear_action" class="btn btn-default">Очистить</button>
+    </div>
+  </div>
+</form>
 
 <h4> История голосований </h4>
 
-<script>
-
-var data = {{ answers_stat }};
-
-
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .ticks(10, "pts");
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-x.domain(data.map(function(d) { return d.answer; }));
-y.domain([0, d3.max(data, function(d) { return d.score; })]);
-
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-
-svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
-  .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("score");
-
-svg.selectAll(".bar")
-    .data(data)
-  .enter().append("rect")
-    .attr("class", "bar")
-    .attr("x", function(d) { return x(d.answer); })
-    .attr("width", x.rangeBand())
-    .attr("y", function(d) { return y(d.score); })
-    .attr("height", function(d) { return height - y(d.score); });
-
-
-
-function type(d) {
-  d.score = +d.score;
-  return d;
-}
-
-</script>
-
-
 <ul>
     {% for pe in profile_events %}
-      <li>{{ pe.profile.email }} answers: {% for ans in pe.answers %} {{ ans }}, {% endfor %}] </li>
+      <li>{{ pe.profile.email }} answers: {% for ans in pe.answers %} {{ ans }}, {% endfor %}] | at {{ pe.dt }} </li>
     {% endfor %}
 
 </ul>
+
+<script>
+var ans = '';
+var prof_ans = '';
+var prof_ans_arr = [];
+var ap_left = 0;
+
+$('.av_ans').click(function() {
+    ans = $(this).html();
+    ap_left = parseInt($('#ap_left').val());
+    if ( ap_left > 0 && prof_ans_arr.indexOf(ans) == -1)  {
+        $('#ap_left').val(ap_left - 1);
+        if (prof_ans == '') {
+            prof_ans = ans;
+        } else {
+            prof_ans = prof_ans + '\n' + ans;
+        }
+        //prof_ans_arr.push(ans);
+        $('#prof_ans').val(prof_ans);
+        $('#prof_ans_hid').val(prof_ans);
+    }
+});
+
+</script>
 {% endblock %}
+
