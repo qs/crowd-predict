@@ -5,4 +5,4 @@ flask-bcrypt
 flask-gravatar
 gunicorn
 authomatic
-openid
+python-openid
