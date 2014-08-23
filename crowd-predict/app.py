@@ -75,7 +75,7 @@ def event_api_v1(event_key):
     for pe in profile_events:
         for a in pe.answers:
             cntr[a] += 1
-    answers_stat = [{'answer': k, 'score': v} for k,v in dict(cntr).items()]
+    answers_stat = [{'name': k, 'value': v} for k,v in dict(cntr).items()]
     return Response(json.dumps(answers_stat, ensure_ascii=False).encode('utf8'),  mimetype='application/json')
 
 
