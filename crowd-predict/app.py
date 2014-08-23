@@ -39,8 +39,13 @@ connect(database.path[1:],
 
 @app.route('/login/<provider_name>/', methods=['GET', 'POST'])
 def login(provider_name):
+    form = LoginForm()
     response = make_response()
-    if provider_name != 'email':
+    if provider_name == 'form':
+        result = None
+        context = dict(result=result, session=session, form=form)
+        return render_template('login.html', **context)
+    elif provider_name != 'email':
         result = auth.authomatic.login(WerkzeugAdapter(request, response), provider_name)
         if result:
             if result.user:
@@ -50,11 +55,25 @@ def login(provider_name):
                 if not prs:
                     pr = Profile(**{'email': user.email})
                     pr.save()
-            #result.user.update()
             return render_template('login.html', result=result, session=session)
         return response
     else:
-        pass
+        prf = Profile.objects.filter(email=form.username.data)
+        print 'prf get, %s' % form.username.data
+        prfs = Profile.objects.all()
+        for i in prfs:
+            print i.email
+        if not prf:
+            print 'not prf, redirect'
+            try:
+                redirect(url_for('login', provider_name='form'))
+            except Exception, e:
+                print e
+        else:
+            print 'prf check'
+            if check_auth(form.username.data, form.passwd.data):
+                print 'checked'
+                redirect(url_for('home_page'))
 
 
 def check_auth(username, password):
@@ -103,7 +122,11 @@ def home_page():
 @app.route("/events/")
 def events_page():
     ''' list of events '''
-    events = Event.objects.all()
+    try:
+        events = Event.objects.all()
+        res = render_template('events.html', events=events, session=session)
+    except Exception,e :
+        print e
     return render_template('events.html', events=events, session=session)
 
 

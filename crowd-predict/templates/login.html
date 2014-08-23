@@ -1,14 +1,10 @@
 {% extends "base.html" %}
-{% block body %}
-    <a href="/">Home</a>
-     {% if result.error %}
-             <h2>Damn that error: {{ result.error.message }}</h2>
-     {% endif %}
-     {% if result.user %}
-            <h1>Hi {{ result.user.name }}</h1>
-      <h2>Your email is: {{ result.user.email }}</h2>
-     {% endif %}
-     {% if not result %}
-         
-     {% endif %}
-  {% endblock body %}
+{% block title %}Войти{% endblock %}
+{% block content %}
+<form method="POST" action="/login/email/">
+    {{ form.csrf_token }}
+    Логин:   {{ form.username }}
+    Пароль: {{ form.passwd }}
+            <input name="go" type="submit" value="Войти">
+        </form>
+  {% endblock %}

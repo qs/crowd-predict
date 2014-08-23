@@ -40,7 +40,7 @@
           <ul class="nav navbar-nav">
             <li><a href="/">События</a></li>
             <li><a href="/info/">О проекте</a></li>
-            <li>{% if session.get('username') %} {{session['username']}} {% else%}<a href='../login'>Login</a> {% endif%}</li>
+            <li>{% if session.get('username') %} {{session.get('username')}} {% else %}<a href='/login/form'>Login</a> {% endif %}</li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
