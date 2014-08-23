@@ -60,6 +60,6 @@ def event_page(event_key, methods=[u'GET', 'POST']):
         for pe in profile_events:
             for a in pe.answers:
                 cntr[a] += 1
-        answers_stat = [{'answer': k, 'score': v} for k,v in dict(cntr)]
+        answers_stat = [{'answer': k, 'score': v} for k,v in dict(cntr).items()]
 
         return render_template('event.html', event=event, profile_events=profile_events, answers_stat=json.dumps(answers_stat))
