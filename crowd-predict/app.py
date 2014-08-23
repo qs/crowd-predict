@@ -62,4 +62,19 @@ def event_page(event_key, methods=[u'GET', 'POST']):
                 cntr[a] += 1
         answers_stat = [{'answer': k, 'score': v} for k,v in dict(cntr).items()]
 
-        return render_template('event.html', event=event, profile_events=profile_events, answers_stat=answers_stat)
+        return render_template('event.html', event=event, profile_events=profile_events)
+
+
+@app.route("/api/event/<event_key>/")
+def event_page(event_key):
+    ''' event data '''
+    event_key = escape(event_key)
+    event = Event.objects(event_key=event_key).first()
+    profile_events = ProfileEvent.objects.filter(event=event_key)
+    cntr = Counter()
+    for pe in profile_events:
+        for a in pe.answers:
+            cntr[a] += 1
+    answers_stat = [{'answer': k, 'score': v} for k,v in dict(cntr).items()]
+
+    return json.dumps(answers_stat)
