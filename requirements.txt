@@ -4,3 +4,4 @@ flask-seasurf
 flask-bcrypt
 flask-gravatar
 gunicorn
+authomatic
