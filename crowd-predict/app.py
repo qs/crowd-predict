@@ -9,6 +9,7 @@ from flask.ext.gravatar import Gravatar
 from flask_wtf.csrf import CsrfProtect
 from mongoengine import connect
 import json
+from datetime import datetime, timedelta
 
 import settings
 from models import *
@@ -59,6 +60,9 @@ def event_new_page():
         available_answers = form.available_answers.data
         available_answers = available_answers.split("\n")
         event = Event(event_key=event_key, title=title, available_answers=available_answers)
+        event.dt = datetime.now()
+        event.finish_dt = datetime.now() + timedelta(days=7)
+        event.close_dt = datetime.now() + timedelta(days=5)
         event.save()
         return redirect(url_for('events_page'))
     else:  # show form
