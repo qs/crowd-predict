@@ -36,6 +36,7 @@ connect(database.path[1:],
         username=database.username,
         password=database.password)
 
+
 @app.route('/login/<provider_name>/', methods=['GET', 'POST'])
 def login(provider_name):
     response = make_response()
@@ -50,7 +51,7 @@ def login(provider_name):
                     pr = Profile(**{'email': user.email})
                     pr.save()
             #result.user.update()
-            return render_template('login.html', result=result)
+            return render_template('login.html', result=result, session=session)
         return response
     else:
         pass
@@ -68,12 +69,14 @@ def check_auth(username, password):
     else:
         return False
 
+
 def authenticate():
     """Sends a 401 response that enables basic auth"""
     return Response(
     'Could not verify your access level for that URL.\n'
     'You have to login with proper credentials', 401,
     {'WWW-Authenticate': 'Basic realm="Login Required"'})
+
 
 def requires_auth(f):
     @wraps(f)
@@ -101,7 +104,7 @@ def home_page():
 def events_page():
     ''' list of events '''
     events = Event.objects.all()
-    return render_template('events.html', events=events)
+    return render_template('events.html', events=events, session=session)
 
 
 @app.route("/event-new/", methods=['GET', 'POST'])
@@ -120,8 +123,7 @@ def event_new_page():
         event.save()
         return redirect(url_for('events_page'))
     else:  # show form
-        return render_template('event-new.html', form=form)
-
+        return render_template('event-new.html', form=form, session=session)
 
 
 @app.route("/event/<event_key>/", methods=['GET', 'POST'])
@@ -141,7 +143,7 @@ def event_page(event_key):
                 cntr[a] += 1
         answers_stat = [{'answer': k, 'score': v} for k,v in dict(cntr).items()]
 
-        return render_template('event.html', event=event, profile_events=profile_events)
+        return render_template('event.html', event=event, profile_events=profile_events, session=session)
 
 
 @app.route("/event/<event_key>/edit", methods=[u'GET', 'POST'])
@@ -154,7 +156,7 @@ def event_edit_page(event_key):
         event_key = escape(event_key)
         event = Event.objects(event_key=event_key).first()
 
-        return render_template('event-edit.html', event=event)
+        return render_template('event-edit.html', event=event, session=session)
 
 
 @app.route("/api/v1/event/<event_key>/")
