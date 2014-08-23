@@ -1,12 +1,14 @@
 # coding:utf-8
 import os
 from cgi import escape
+from collections import Counter
 from urlparse import urlparse
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, Response
 from flask.ext.seasurf import SeaSurf
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.gravatar import Gravatar
 from mongoengine import connect
+import json
 
 import settings
 from models import *
@@ -54,4 +56,28 @@ def event_page(event_key, methods=[u'GET', 'POST']):
         event_key = escape(event_key)
         event = Event.objects(event_key=event_key).first()
         profile_events = ProfileEvent.objects.filter(event=event_key)
+        cntr = Counter()
+        for pe in profile_events:
+            for a in pe.answers:
+                cntr[a] += 1
+        answers_stat = [{'answer': k, 'score': v} for k,v in dict(cntr).items()]
+
         return render_template('event.html', event=event, profile_events=profile_events)
+
+
+@app.route("/api/v1/event/<event_key>/")
+def event_api_v1(event_key):
+    ''' event data '''
+    event_key = escape(event_key)
+    event = Event.objects(event_key=event_key).first()
+    profile_events = ProfileEvent.objects.filter(event=event_key)
+    cntr = Counter()
+    for pe in profile_events:
+        for a in pe.answers:
+            cntr[a] += 1
+    answers_stat = [{'answer': k, 'score': v} for k,v in dict(cntr).items()]
+    return Response(json.dumps(answers_stat, ensure_ascii=False).encode('utf8'),  mimetype='application/json')
+
+
+if __name__ == "__main__":
+    app.run()
