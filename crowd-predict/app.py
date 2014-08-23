@@ -36,38 +36,41 @@ def get_current_profile():
 @app.route("/")
 def home_page():
     ''' redirects to event page '''
-    lst = [{'shden5663@mail.ru':[]},
-    {'rom.sheulov@gmail.com': [u'REES46', u'schalarm', u'OPPI']},
-    {'fun@mail.ru': [u'OPPI', u'schalarm', u'On air']},
-    {'1': [u'3D MMM', u'æMind Manipulus', u'3D 2Phone', u'GadjetHolder', u'BeHealthier']},
-    {'polinashekleina555@gmail.com': [u'BeHealthier', u'3D MMM', u'æMind Manipulus', u'GadjetHolder', u'CardiWear']},
-    {'andreypalshin@gmail.com': [u'3D MMM', u'3D 2Phone', u'æMind Manipulus', u'GadjetHolder', u'BeHealthier']},
-    {'maxigen4@gmail.com': [u'3D MMM', u'3D 2Phone', u'GadjetHolder', u'CardiWear', u'лагранжиан стандартной модели для чайников']},
-    {'regmail92@mail.ru': [u'3D MMM', u'3D 2Phone', u'BeHealthier', u'On air', u'GadjetHolder']},
-    {'nikikita@mail.ru': [u'æMind Manipulus', u'Биологи', u'Crowd Predicts']},
-    {'soloha_vladimir@hotmail.com': [u'schalarm', u'GadjetHolder', u'Crowd Predicts', u'æMind Manipulus']},
-    {'silyakov@gmail.com': [u'CardiWear', u'BeHealthier', u'schalarm', u'æMind Manipulus']},
-    {'xakonde@gmail.com': [u'æMind Manipulus', u'CardiWear', u'3D 2Phone', u'On Air', u'Раскраска котиков']},
-    {'mialerxd@gmail.com': [u'æMind Manipulus', u'CardiWear', u'Crowd Predicts']},
-    {'zaharoffv@inbox.ru': [u'GadjetHolder', u'3D MMM', u'CardiWear', u'æMind Manipulus']},
-    {'yndx.kroniker@yandex.ru': [u'On Air', u'GadjetHolder', u'3D 2Phone', u'æMind Manipulus']},
-    {'a.aysurarova@gmail.com': [u'CardiWear', u'BeHealthier', u'æMind Manipulus']},
-    {'2': [u'CardiWear', u'Раскраска котиков', u'æMind Manipulus', u'GadjetHolder', u'On Air']},
-    {'vladimir.diht@yandex.ru': [u'æMind Manipulus', u'CardiWear', u'Раскраска котиков']},
-    {'annagrenn@gmail.com': [u'æMind Manipulus', u'On Air', u'лагранжиан стандартной модели для чайников']},
-    {'3': [u'CardiWear', u'SpectTRIK']},
-    {'4': [u'GadjetHolder', u'CardiWear', u'BeHealthier']},
-    {'whoosh.s@gmail.com': [u'SunSeat', u'GadjetHolder', u'CardiWear']},
-    {'commonica@yandex.ru': [u'CardiWear', u'3D 2Phone', u'REES46', u'OPPI', u'On Air']},
-    {'zhur85@gmail.com': [u'REES46', u'CardiWear', u'BeHealthier', u'On Air', u'æMind Manipulus']},
-    {'anikarain1991@gmail.com': [u'GadjetHolder', u'æMind Manipulus']},
-    {'kotapesik@gmail.com': [u'лагранжиан стандартной модели для чайников', u'æMind Manipulus', u'GadjetHolder', u'SpectTRIK', u'CardiWear']},
-    {'acccko@gmail.com': [u'CardiWear', u'schalarm', u'3D MMM', u'Crowd Predicts', u'лагранжиан стандартной модели для чайников']},]
+    lst = [{'shden5663@mail.ru':[], },
+    {'rom.sheulov@gmail.com': ['REES46', 'schalarm', 'OPPI'], },
+    {'fun@mail.ru': ['OPPI', 'schalarm', 'On air'], },
+    {'anon1@example.com': ['3D MMM', 'æMind Manipulus', '3D 2Phone', 'GadjetHolder', 'BeHealthier'], },
+    {'polinashekleina555@gmail.com': ['BeHealthier', '3D MMM', 'æMind Manipulus', 'GadjetHolder', 'CardiWear'], },
+    {'andreypalshin@gmail.com': ['3D MMM', '3D 2Phone', 'æMind Manipulus', 'GadjetHolder', 'BeHealthier'], },
+    {'maxigen4@gmail.com': ['3D MMM', '3D 2Phone', 'GadjetHolder', 'CardiWear', 'лагранжиан стандартной модели для чайников'], },
+    {'regmail92@mail.ru': ['3D MMM', '3D 2Phone', 'BeHealthier', 'On air', 'GadjetHolder'], },
+    {'nikikita@mail.ru': ['æMind Manipulus', 'Биологи', 'Crowd Predicts'], },
+    {'soloha_vladimir@hotmail.com': ['schalarm', 'GadjetHolder', 'Crowd Predicts', 'æMind Manipulus'], },
+    {'silyakov@gmail.com': ['CardiWear', 'BeHealthier', 'schalarm', 'æMind Manipulus'], },
+    {'xakonde@gmail.com': ['æMind Manipulus', 'CardiWear', '3D 2Phone', 'On Air', 'Раскраска котиков'], },
+    {'mialerxd@gmail.com': ['æMind Manipulus', 'CardiWear', 'Crowd Predicts'], },
+    {'zaharoffv@inbox.ru': ['GadjetHolder', '3D MMM', 'CardiWear', 'æMind Manipulus'], },
+    {'yndx.kroniker@yandex.ru': ['On Air', 'GadjetHolder', '3D 2Phone', 'æMind Manipulus'], },
+    {'a.aysurarova@gmail.com': ['CardiWear', 'BeHealthier', 'æMind Manipulus'], },
+    {'anon2@example.com': ['CardiWear', 'Раскраска котиков', 'æMind Manipulus', 'GadjetHolder', 'On Air'], },
+    {'vladimir.diht@yandex.ru': ['æMind Manipulus', 'CardiWear', 'Раскраска котиков'], },
+    {'annagrenn@gmail.com': ['æMind Manipulus', 'On Air', 'лагранжиан стандартной модели для чайников'], },
+    {'anon3@example.com': ['CardiWear', 'SpectTRIK'], },
+    {'anon4@example.com': ['GadjetHolder', 'CardiWear', 'BeHealthier'], },
+    {'whoosh.s@gmail.com': ['SunSeat', 'GadjetHolder', 'CardiWear'], },
+    {'commonica@yandex.ru': ['CardiWear', '3D 2Phone', 'REES46', 'OPPI', 'On Air'], },
+    {'zhur85@gmail.com': ['REES46', 'CardiWear', 'BeHealthier', 'On Air', 'æMind Manipulus'], },
+    {'anikarain1991@gmail.com': ['GadjetHolder', 'æMind Manipulus'], },
+    {'kotapesik@gmail.com': ['лагранжиан стандартной модели для чайников', 'æMind Manipulus', 'GadjetHolder', 'SpectTRIK', 'CardiWear'], },
+    {'acccko@gmail.com': ['CardiWear', 'schalarm', '3D MMM', 'Crowd Predicts', 'лагранжиан стандартной модели для чайников'], },
+    {'hnalina@gmail.com': ['GadjetHolder', 'æMind Manipulus', 'CardiWear', 'BeHealthier', 'schalarm'], },]
     for i in lst:
-        p = ProfileEvent(**i)
-        p.save()
-    ProfileEvent.insert(res)
-
+        ep = ProfileEvent()
+        ema = i.keys()[0]
+        ep.profile = Profile.objects.get(email=ema)
+        ep.answers = i[ema]
+        ep.event = Event.objects.get(event_key='hackday')
+        ep.save()
 
     return redirect(url_for('events_page'))
 
