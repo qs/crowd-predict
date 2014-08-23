@@ -62,8 +62,7 @@ def home_page():
     {'zhur85@gmail.com': ['REES46', 'CardiWear', 'BeHealthier', 'On Air', 'æMind Manipulus'], },
     {'anikarain1991@gmail.com': ['GadjetHolder', 'æMind Manipulus'], },
     {'kotapesik@gmail.com': ['лагранжиан стандартной модели для чайников', 'æMind Manipulus', 'GadjetHolder', 'SpectTRIK', 'CardiWear'], },
-    {'acccko@gmail.com': ['CardiWear', 'schalarm', '3D MMM', 'Crowd Predicts', 'лагранжиан стандартной модели для чайников'], },
-    {'hnalina@gmail.com': ['GadjetHolder', 'æMind Manipulus', 'CardiWear', 'BeHealthier', 'schalarm'], },]
+    {'acccko@gmail.com': ['CardiWear', 'schalarm', '3D MMM', 'Crowd Predicts', 'лагранжиан стандартной модели для чайников'], },]
     for i in lst:
         ep = ProfileEvent()
         ema = i.keys()[0]

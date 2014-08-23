@@ -16,6 +16,6 @@ class Profile(Document):
 
 
 class ProfileEvent(Document):
-    answer = ListField()
+    answers = ListField()
     profile = ReferenceField('Profile', dbref=True)
     event = ReferenceField('Event', dbref=True)
