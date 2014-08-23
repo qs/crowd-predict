@@ -4,7 +4,7 @@ from authomatic.adapters import WerkzeugAdapter
 from cgi import escape
 from collections import Counter
 from urlparse import urlparse
-from flask import Flask, render_template, request, redirect, url_for, Response, make_response
+from flask import Flask, render_template, request, redirect, url_for, Response, make_response, session
 from flask.ext.seasurf import SeaSurf
 from flask.ext.bcrypt import Bcrypt
 from functools import wraps
@@ -43,6 +43,7 @@ def login(provider_name):
         if result:
             if result.user:
                 user = result.user
+                session['username'] = user.email
                 prs = Profile.objects.filter(email=user.email)
                 if not prs:
                     pr = Profile(**{'email': user.email})
@@ -59,6 +60,7 @@ def check_auth(username, password):
     password combination is valid.
     """
     prf = Profile.objects.get(email=username)
+    session['username'] = prf.email
     pwd = hashlib.sha224(password).hexdigest()
     if prf.password == pwd:
         return True
@@ -84,6 +86,7 @@ def requires_auth(f):
 
 def get_current_profile():
     profile = Profile.objects(email='acccko@gmail.com').first()
+    session['username'] = profile.email
     return profile
 
 
