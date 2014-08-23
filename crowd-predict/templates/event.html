@@ -6,7 +6,7 @@
 <h3> Событие: {{ event.title }} </h3>
 <h4> Варианты исхода события </h4>
 {% for aa in event.available_answers %}
-    <li><a href="#" role="button" class="av_ans">{{ aa }}</a></li>
+    <a href="#" role="button" class="av_ans btn btn-primary">{{ aa }}</a>
 {% endfor %}
 
 <h4> Ваш вариант </h4>
