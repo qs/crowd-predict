@@ -16,6 +16,7 @@ import hashlib
 
 import settings
 from models import *
+from forms import *
 import auth as auth
 from datetime import datetime, timedelta
 
