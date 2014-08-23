@@ -65,8 +65,8 @@ def event_page(event_key, methods=[u'GET', 'POST']):
         return render_template('event.html', event=event, profile_events=profile_events)
 
 
-@app.route("/api/event/<event_key>/")
-def event_page(event_key):
+@app.route("/api/v1/event/<event_key>/")
+def event_api_v1(event_key):
     ''' event data '''
     event_key = escape(event_key)
     event = Event.objects(event_key=event_key).first()
