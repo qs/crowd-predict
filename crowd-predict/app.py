@@ -83,9 +83,8 @@ def requires_auth(f):
 
 
 def get_current_profile():
-    result = auth.authomatic.login(Webapp2Adapter(self), 'twitter')
-    #profile = Profile.objects(email='acccko@gmail.com').first()
-    #return profile
+    profile = Profile.objects(email='acccko@gmail.com').first()
+    return profile
 
 
 @app.route("/")
