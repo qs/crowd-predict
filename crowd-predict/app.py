@@ -1,6 +1,7 @@
 # coding:utf-8
 import os
 from cgi import escape
+from collections import Counter
 from urlparse import urlparse
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask.ext.seasurf import SeaSurf
@@ -54,4 +55,8 @@ def event_page(event_key, methods=[u'GET', 'POST']):
         event_key = escape(event_key)
         event = Event.objects(event_key=event_key).first()
         profile_events = ProfileEvent.objects.filter(event=event_key)
-        return render_template('event.html', event=event, profile_events=profile_events)
+        cntr = Counter()
+        for pe in profile_events:
+            for a in pe.answers:
+                cntr[a] += 1
+        return render_template('event.html', event=event, profile_events=profile_events, answers_stat=dict(cntr))
