@@ -10,9 +10,19 @@
 {% endfor %}
 
 <h4> История голосований </h4>
+
+<div class="chart">
+  <div style="width: 40px;">4</div>
+  <div style="width: 80px;">8</div>
+  <div style="width: 150px;">15</div>
+  <div style="width: 160px;">16</div>
+  <div style="width: 230px;">23</div>
+  <div style="width: 420px;">42</div>
+</div>
+
 <ul>
     {% for pe in profile_events %}
-      <li>{{ pe.profile.email }} answers: {{ pe.answers }}</li>
+      <li>{{ pe.profile.email }} answers: {% for ans in pe.answers %} {{ ans }}, {% endfor %}] </li>
     {% endfor %}
 
 </ul>
