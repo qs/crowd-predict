@@ -148,7 +148,7 @@ def event_new_page():
         return render_template('event-new.html', form=form, session=session)
 
 
-@requires_auth
+#@requires_auth
 @app.route("/event/<event_key>/", methods=['GET', 'POST'])
 def event_page(event_key):
     ''' event data '''
