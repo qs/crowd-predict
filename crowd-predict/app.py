@@ -124,7 +124,7 @@ def events_page():
     try:
         events = Event.objects.all()
         res = render_template('events.html', events=events, session=session)
-    except Exception,e :
+    except Exception, e:
         print e
     return render_template('events.html', events=events, session=session)
 
