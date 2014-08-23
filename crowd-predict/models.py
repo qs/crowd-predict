@@ -12,6 +12,7 @@ class Event(Document):
 
 class Profile(Document):
     email = EmailField(required=True, primary_key=True)
+    password = StringField(required=False)
     dt = DateTimeField()
 
 

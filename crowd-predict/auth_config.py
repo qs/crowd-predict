@@ -1,5 +1,5 @@
 import authomatic
-from authomatic.providers import oauth2, oauth1, openid, gaeopenid
+from authomatic.providers import oauth2, oauth1, openid
 
 CONFIG = {
 
@@ -70,9 +70,9 @@ CONFIG = {
     'oi': {
          'class_': openid.OpenID, # OpenID only needs this.
     },
-    'gaeoi': {
-         'class_': gaeopenid.GAEOpenID, # Google App Engine based OpenID provider.
-    },
+    #'gaeoi': {
+    #     'class_': gaeopenid.GAEOpenID, # Google App Engine based OpenID provider.
+    #},
     'yahoo_oi': {
          'class_': openid.Yahoo, # OpenID provider with predefined identifier 'https://me.yahoo.com'.
          'sreg': ['email'] # This overrides the "sreg" defined in "__defaults__".
