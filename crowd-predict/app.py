@@ -39,7 +39,6 @@ connect(database.path[1:],
 
 
 def render_template(*args, **kwargs):
-    #kwargs['profile'] = 'lol'
     return base_render_template(*args, **kwargs)
 
 
@@ -114,8 +113,15 @@ def requires_auth(f):
 
 
 def get_current_profile():
-    profile = Profile.objects(email='acccko@gmail.com').first()
-    return profile
+    if 'email' in session:
+        profile = Profile.objects(email=session['email'])
+        if profile:
+            return profile.first()
+        else:
+            return None
+    else:
+        return None
+    return None
 
 
 @app.route("/")
@@ -124,11 +130,30 @@ def home_page():
     return redirect('/events/')
 
 
+@app.route('/auth/enter/', methods=['GET', 'POST'])
+def auth_enter():
+    ''' entering site '''
+    if request.method == 'POST':
+        password = request.values.get('password')
+        email = request.values.get('email')
+        profile = Profile.objects(email=email).first()
+        if profile.verify_password(password):
+            session['pwd'] = profile.hash_password(password)
+            session['email'] = profile.email
+            return redirect('/events/')
+        else:
+            return redirect('/auth/enter/')
+    else:
+        return render_template('enter.html')
+
+
 @app.route("/profile/")
 def profile_self_page():
     profile = get_current_profile()
-    return redirect('/profile/%s/' % profile.email)
-
+    if profile:
+        return redirect('/profile/%s/' % profile.email)
+    else:
+        return redirect('/auth/enter/')
 
 @app.route("/profile/<email>/")
 def profile_page(email):
@@ -177,6 +202,8 @@ def event_page(event_key):
         data = request.values.get('prof_ans_hid')
         answers = list(set([a.replace('\r', '') for a in data.split('\n')]))
         profile = get_current_profile()
+        if not profile:
+            return redirect('/auth/enter/')
         pe = ProfileEvent(event=event, answers=answers, profile=profile, dt=datetime.now())
         pe.save()
         return redirect('/event/%s/' % event_key)
@@ -184,6 +211,8 @@ def event_page(event_key):
         event_key = escape(event_key)
         event = Event.objects(event_key=event_key).first()
         profile = get_current_profile()
+        if not profile:
+            return redirect('/auth/enter/')
         profile_events = ProfileEvent.objects.filter(event=event_key, profile=profile)
         profile_aggr = ProfileEvent._get_collection().aggregate([
           {"$match": {'profile.$id': profile.email}},
@@ -206,6 +235,8 @@ def event_edit_page(event_key):
     ''' event editing'''
     if request.method == 'POST':  # updating event
         profile = get_current_profile()
+        if not profile:
+            return redirect('/auth/enter/')
         return redirect('/event/%s/' % event_key)
     else:  # show forms
         event_key = escape(event_key)
@@ -225,12 +256,9 @@ def event_stat_page(event_key):
         for a in pe.answers:
             cntr[a] += 1
     answers_stat = [{'name': k, 'value': v} for k, v in dict(cntr).items()]
-    print dict(cntr).items()
-    print json.dumps(answers_stat, ensure_ascii=False).encode('utf8')
     #answers_stat = []
     return render_template('event-stat.html', event=event,
                            answers_stat=answers_stat)
-
 
 
 @app.route("/api/v1/event/<event_key>/")

@@ -41,7 +41,7 @@
           <ul class="nav navbar-nav">
             <li><a href="/events/">События</a></li>
             <li><a href="/profile/">Мой профиль</a></li>
-            <li>{% if session.get('username') %} {{session.get('username')}} {% else %}<a href='/login/form'>Login</a> {% endif %}</li>
+            <li><p class="navbar-text">{% if session['email'] %} {{ session['email'] }}</p> {% else %}<a href='/auth/enter/'>Войти</a> {% endif %}</li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->

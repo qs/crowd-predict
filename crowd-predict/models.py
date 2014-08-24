@@ -1,5 +1,5 @@
 from mongoengine import Document, StringField, EmailField, DateTimeField, ListField, ReferenceField, IntField
-
+from passlib.apps import custom_app_context as pwd_context
 
 class Event(Document):
     event_key = StringField(required=True, primary_key=True)
@@ -15,9 +15,17 @@ class Event(Document):
 
 class Profile(Document):
     email = EmailField(required=True, primary_key=True)
-    password = StringField(required=False)
+    password = StringField(required=True)
     dt = DateTimeField()
 
+    def hash_password(self, password):
+        self.password = password
+
+    def verify_password(self, password):
+        if password == self.password:
+            return True
+        else:
+            return False
 
 class ProfileEvent(Document):
     answers = ListField()

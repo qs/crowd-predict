@@ -6,3 +6,4 @@ flask-gravatar
 gunicorn
 authomatic
 python-openid
+passlib
