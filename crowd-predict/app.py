@@ -224,7 +224,7 @@ def event_edit_page(event_key):
     for pe in profile_events:
         for a in pe.answers:
             cntr[a] += 1
-    answers_stat = [{'name': k, 'value': v} for k, v in dict(cntr).items()]
+    #answers_stat = [{'name': k, 'value': v} for k, v in dict(cntr).items()]
     #print dict(cntr).items()
     #print json.dumps(answers_stat, ensure_ascii=False).encode('utf8')
     answers_stat = []
