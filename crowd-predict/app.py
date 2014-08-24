@@ -115,6 +115,10 @@ def get_current_profile():
 @app.route("/")
 def home_page():
     ''' redirects to event page '''
+    for pe in ProfileEvent.objects.all():
+        if pe.dt is None:
+            pe.dt = datetime.now() - timedelta(days=1)
+            pe.save()
     return redirect(url_for('events_page'))
 
 
@@ -226,7 +230,6 @@ def event_predicts_api_v1(event_key):
       }
     ])
     return Response(json.dumps(event_aggr['result'], ensure_ascii=False).encode('utf8'),  mimetype='application/json')
-
 
 
 if __name__ == "__main__":
