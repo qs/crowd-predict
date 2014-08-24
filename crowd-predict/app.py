@@ -290,16 +290,21 @@ def event_stat_page(event_key):
       {"$group": {
         '_id': "$_id.profile",
         'last_answer': { "$last": "$_id.answers"},
+        'first_answer': { "$first": "$_id.answers"},
         }
       }
     ])
     cntr = Counter()
+    cntr_first = Counter()
     for pe in event_aggr['result']:
         for a in pe['last_answer']:
             cntr[a] += 1
+        for a in pe['first_answer']:
+            cntr_first[a] += 1
     answers_stat = [{'name': k, 'value': v} for k, v in dict(cntr).items()]
+    answers_first_stat = [{'name': k, 'value': v} for k, v in dict(cntr_first).items()]
     return render_template('event-stat.html', event=event,
-                           answers_stat=answers_stat)
+                           answers_stat=answers_stat, answers_first_stat=answers_first_stat)
 
 
 @app.route("/api/v1/event/<event_key>/")
