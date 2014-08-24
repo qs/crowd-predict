@@ -121,7 +121,7 @@ def get_current_profile():
 @app.route("/")
 def home_page():
     ''' redirects to event page '''
-    return redirect(url_for('events_page'))
+    return redirect('/events/')
 
 
 @app.route("/profile/")
@@ -163,12 +163,11 @@ def event_new_page():
         event.finish_dt = datetime.now() + timedelta(days=7)
         event.close_dt = datetime.now() + timedelta(days=5)
         event.save()
-        return redirect(url_for('events_page'))
+        return redirect('/events/')
     else:  # show form
         return render_template('event-new.html', form=form, session=session)
 
 
-#@requires_auth
 @app.route("/event/<event_key>/", methods=['GET', 'POST'])
 def event_page(event_key):
     ''' event data '''
@@ -180,7 +179,7 @@ def event_page(event_key):
         profile = get_current_profile()
         pe = ProfileEvent(event=event, answers=answers, profile=profile, dt=datetime.now())
         pe.save()
-        return redirect(url_for('event_page', event_key=event_key))
+        return redirect('/event/%s/' % event_key)
     else:
         event_key = escape(event_key)
         event = Event.objects(event_key=event_key).first()
@@ -207,7 +206,7 @@ def event_edit_page(event_key):
     ''' event editing'''
     if request.method == 'POST':  # updating event
         profile = get_current_profile()
-        return redirect(url_for('event_page', event_key=event_key))
+        return redirect('/event/%s/' % event_key)
     else:  # show forms
         event_key = escape(event_key)
         event = Event.objects(event_key=event_key).first()
