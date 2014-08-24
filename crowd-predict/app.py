@@ -224,12 +224,12 @@ def event_stat_page(event_key):
     for pe in profile_events:
         for a in pe.answers:
             cntr[a] += 1
-    #answers_stat = [{'name': k, 'value': v} for k, v in dict(cntr).items()]
-    #print dict(cntr).items()
-    #print json.dumps(answers_stat, ensure_ascii=False).encode('utf8')
-    answers_stat = []
+    answers_stat = [{'name': k, 'value': v} for k, v in dict(cntr).items()]
+    print dict(cntr).items()
+    print json.dumps(answers_stat, ensure_ascii=False).encode('utf8')
+    #answers_stat = []
     return render_template('event-stat.html', event=event,
-                           answers_stat=json.dumps(answers_stat, ensure_ascii=False).encode('utf8'))
+                           answers_stat=answers_stat)
 
 
 

@@ -4,9 +4,10 @@
 
 {% block content %}
 <h3> Статистика события: {{ event.title }} </h3>
+<div id="chart"></div>
 <script>
 function renderChart() {
-    var data = {{ answers_stat }};
+var data = [{% for a in answers_stat %} {"name": "{{ a['name'] }}", "value": {{ a['value'] }} } {% if not loop.last %},{% endif %} {% endfor %}];
 var valueLabelWidth = 140; // space reserved for value labels (right)
 var barHeight = 20; // height of one bar
 var barLabelWidth = 100; // space reserved for bar labels
