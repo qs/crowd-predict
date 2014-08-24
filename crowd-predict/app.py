@@ -126,11 +126,6 @@ def get_current_profile():
 
 @app.route("/")
 def home_page():
-    lol_pass = {'zaharoffv@inbox.ru': '71ac3b25', 'rom.sheulov@gmail.com': '170b4d6ec', 'regmail92@mail.ru': '183cc6f32', 'andreypalshin@gmail.com': '5a9b2d9d', 'mialerxd@gmail.com': '166f6ad81', 'a.aysurarova@gmail.com': '16473efa0', 'anon2@example.com': '44b2d0', 'anikarain1991@gmail.com': '6d5b60', 'yndx.kroniker@yandex.ru': 'a4c5e234', 'soloha_vladimir@hotmail.com': '8e8906cc', 'xakonde@gmail.com': '18ad0cd29', 'zhur85@gmail.com': '7d66c2', 'anon4@example.com': '2bd340', 'anon1@example.com': '28a810', 'fun@mail.ru': '1b0bb882', 'shden5663@mail.ru': '65ba98', 'maxigen4@gmail.com': 'f3a373f2', 'annagrenn@gmail.com': '7986e16', 'whoosh.s@gmail.com': '8b500981', 'silyakov@gmail.com': '143ee7120', 'nikikita@mail.ru': '1c645411f', 'acccko@gmail.com': '1bd379fb9', 'polinashekleina555@gmail.com': 'ebeb5b21', 'vladimir.diht@yandex.ru': '250b21b03', 'anon3@example.com': '865880', 'commonica@yandex.ru': '22085146b', 'kotapesik@gmail.com': '22ca21', 'hnalina@gmail.com': '85edbe12'}
-    for p in Profile.objects.all():
-        p.score = 0
-        p.password = lol_pass[p.email]
-        p.save()
     ''' redirects to event page '''
     return redirect('/events/')
 
