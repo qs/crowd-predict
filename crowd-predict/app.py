@@ -213,7 +213,7 @@ def event_edit_page(event_key):
         return render_template('event-edit.html', event=event, session=session)
 
 
-'''
+"""
 @app.route("/event/<event_key>/stat/")
 def event_edit_page(event_key):
     ''' event statistics'''
@@ -230,7 +230,7 @@ def event_edit_page(event_key):
     answers_stat = []
     return render_template('event-stat.html', event=event,
                            answers_stat=json.dumps(answers_stat, ensure_ascii=False).encode('utf8'))
-'''
+"""
 
 
 @app.route("/api/v1/event/<event_key>/")
