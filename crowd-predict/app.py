@@ -233,15 +233,51 @@ def event_page(event_key):
 @app.route("/event/<event_key>/edit/", methods=[u'GET', 'POST'])
 def event_edit_page(event_key):
     ''' event editing'''
-    if request.method == 'POST':  # updating event
-        profile = get_current_profile()
-        if not profile:
-            return redirect('/auth/enter/')
+    form = EventForm()
+    if request.method == 'POST' and form.validate():
+        correct_answers = form.correct_answers.data
+        correct_answers = [ca.replace('\r', '') for ca in correct_answers.split('\n')]
+        event = Event.objects(event_key=event_key).first()
+        event.correct_answers = correct_answers
+        event.finish_dt = datetime.now()
+        event.save()
+        # compute scores
+        event_aggr = ProfileEvent._get_collection().aggregate([
+          {"$match": {'event.$id': event_key}},
+          {"$group": {'_id': {'profile': "$profile", 'answers': "$answers"}, 'dt': {"$max": "$dt"}}},
+          {"$sort": {'dt': 1}},
+          {"$group": {
+            '_id': "$_id.profile",
+            'first_answer': {"$first": "$_id.answers"},
+            'first_dt': {"$first": "$dt"},
+            'last_answer': { "$last": "$_id.answers"},
+            'last_dt': { "$last": "$dt"}
+            }
+          }
+        ])
+        for pe in event_aggr['result']:
+            profile = Profile.objects(email=pe['_id'].id).first()
+            set_first = set(pe['first_answer'])
+            set_last = set(pe['last_answer'])
+            set_correct = set(correct_answers)
+            diff_first = len(set_first.difference(set_correct))
+            diff_last = len(set_last.difference(set_correct))
+            cnt_correct = len(set_correct)
+            points = (diff_last * 0.75 + diff_first * 0.25)
+            if points < cnt_correct/2:
+               res_points = points
+            else:
+               res_points = -points
+            print profile.score, res_points
+            profile.score = res_points
+            profile.score
+            profile.save()
+            profile.score
         return redirect('/event/%s/' % event_key)
     else:  # show forms
         event_key = escape(event_key)
         event = Event.objects(event_key=event_key).first()
-        return render_template('event-edit.html', event=event, session=session)
+        return render_template('event-edit.html', event=event, form=form)
 
 
 

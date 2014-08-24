@@ -17,6 +17,7 @@ class Profile(Document):
     email = EmailField(required=True, primary_key=True)
     password = StringField(required=True)
     dt = DateTimeField()
+    score = IntField(required=True, default=0)
 
     def hash_password(self, password):
         self.password = password

@@ -4,18 +4,11 @@
 
 {% block content %}
 <h3> Редактирование события </h3>
-
+{% for aa in event.available_answers %} {{ aa }}, {% endfor %}
 <form method="POST" action="">
     {{ form.csrf_token }}
-    Название: <br />
-    {{ form.title(size=20) }} <br />
-    URL события: <br />
-    {{ form.event_key(size=20) }} <br />
-    Исходы события (каждый с новой строки): <br />
-    {{ form.available_answers }}<br />
     Набор верных исходов (каждый с новой строки, заполняется, если нужно завершить событие): <br />
-    {{ form.correct_answers_answers }}<br />
-    <input type="submit" name="upd-event" value="Обновить">
+    {{ form.correct_answers }}<br />
     <input type="submit" name="finish-event" value="Завершить событие">
 </form>
 
