@@ -4,7 +4,8 @@ from authomatic.adapters import WerkzeugAdapter
 from cgi import escape
 from collections import Counter
 from urlparse import urlparse
-from flask import Flask, render_template, request, redirect, url_for, Response, make_response, session
+from flask import Flask, request, redirect, url_for, Response, make_response, session
+from flask import render_template as base_render_template
 from flask.ext.seasurf import SeaSurf
 from flask.ext.bcrypt import Bcrypt
 from functools import wraps
@@ -35,6 +36,11 @@ connect(database.path[1:],
         port=database.port,
         username=database.username,
         password=database.password)
+
+
+def render_template(*args, **kwargs):
+    kwargs['profile'] = 'lol'
+    return base_render_template(*args, **kwargs)
 
 
 @app.route('/login/<provider_name>/', methods=['GET', 'POST'])
@@ -196,7 +202,7 @@ def event_page(event_key):
         return render_template('event.html', event=event, profile_events=profile_events, profile_aggr=profile_aggr['result'][0])
 
 
-@app.route("/event/<event_key>/edit", methods=[u'GET', 'POST'])
+@app.route("/event/<event_key>/edit/", methods=[u'GET', 'POST'])
 def event_edit_page(event_key):
     ''' event editing'''
     if request.method == 'POST':  # updating event
@@ -206,6 +212,24 @@ def event_edit_page(event_key):
         event_key = escape(event_key)
         event = Event.objects(event_key=event_key).first()
         return render_template('event-edit.html', event=event, session=session)
+
+
+@app.route("/event/<event_key>/stat/")
+def event_edit_page(event_key):
+    ''' event statistics'''
+    event_key = escape(event_key)
+    event = Event.objects(event_key=event_key).first()
+    profile_events = ProfileEvent.objects.filter(event=event_key)
+    cntr = Counter()
+    for pe in profile_events:
+        for a in pe.answers:
+            cntr[a] += 1
+    answers_stat = [{'name': k, 'value': v} for k, v in dict(cntr).items()]
+    print dict(cntr).items()
+    print json.dumps(answers_stat, ensure_ascii=False).encode('utf8')
+    #answers_stat = []
+    return render_template('event-stat.html', event=event,
+                           answers_stat=json.dumps(answers_stat, ensure_ascii=False).encode('utf8'))
 
 
 @app.route("/api/v1/event/<event_key>/")
