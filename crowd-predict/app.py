@@ -166,8 +166,20 @@ def event_page(event_key):
         event = Event.objects(event_key=event_key).first()
         profile = get_current_profile()
         profile_events = ProfileEvent.objects.filter(event=event_key, profile=profile)
-
-        return render_template('event.html', event=event, profile_events=profile_events)
+        profile_aggr = ProfileEvent._get_collection().aggregate([
+          {"$match": {'profile.$id': profile.email}},
+          {"$group": {'_id': {'profile': "$profile", 'answers': "$answers"}, 'dt': {"$max": "$dt"}}},
+          {"$sort": {'dt': 1}},
+          {"$group": {
+            '_id': "$_id.profile",
+            'first_answer': {"$first": "$_id.answers"},
+            'first_dt': {"$first": "$dt"},
+            'last_answer': { "$last": "$_id.answers"},
+            'last_dt': { "$last": "$dt"}
+            }
+          }
+        ])
+        return render_template('event.html', event=event, profile_events=profile_events, profile_aggr=profile_aggr['result'][0])
 
 
 @app.route("/event/<event_key>/edit", methods=[u'GET', 'POST'])
@@ -179,7 +191,6 @@ def event_edit_page(event_key):
     else:  # show forms
         event_key = escape(event_key)
         event = Event.objects(event_key=event_key).first()
-
         return render_template('event-edit.html', event=event, session=session)
 
 
@@ -195,6 +206,27 @@ def event_api_v1(event_key):
             cntr[a] += 1
     answers_stat = [{'name': k, 'value': v} for k,v in dict(cntr).items()]
     return Response(json.dumps(answers_stat, ensure_ascii=False).encode('utf8'),  mimetype='application/json')
+
+
+@app.route("/api/v1/event/<event_key>/predicts/")
+def event_predicts_api_v1(event_key):
+    ''' event data '''
+    event_key = escape(event_key)
+    event_aggr = ProfileEvent._get_collection().aggregate([
+      {"$match": {'event.$id': event_key}},
+      {"$group": {'_id': {'profile': "$profile", 'answers': "$answers"}, 'dt': {"$max": "$dt"}}},
+      {"$sort": {'dt': 1}},
+      {"$group": {
+        '_id': "$_id.profile",
+        'first_answer': {"$first": "$_id.answers"},
+        'first_dt': {"$first": "$dt"},
+        'last_answer': { "$last": "$_id.answers"},
+        'last_dt': { "$last": "$dt"}
+        }
+      }
+    ])
+    return Response(json.dumps(event_aggr['result'], ensure_ascii=False).encode('utf8'),  mimetype='application/json')
+
 
 
 if __name__ == "__main__":
