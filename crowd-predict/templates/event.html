@@ -39,7 +39,7 @@
     Первый прогноз:
         {% for a in profile_aggr["first_answer"] %}<code>{{ a }}</code>, {% endfor %}
     был дан {{ profile_aggr["first_dt"].strftime('%d.%m.%Y %H:%M') }}<br />
-    Первый последний прогноз:
+    Последний прогноз:
         {% for a in profile_aggr["last_answer"] %}<code>{{ a }}</code>, {% endfor %}
     был дан {{ profile_aggr["last_dt"].strftime('%d.%m.%Y %H:%M') }}<br />
 {% endif %}
