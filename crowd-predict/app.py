@@ -115,10 +115,6 @@ def get_current_profile():
 @app.route("/")
 def home_page():
     ''' redirects to event page '''
-    for pe in Profile.objects.all():
-        if pe.score is None:
-            pe.score = 0
-            pe.save()
     return redirect(url_for('events_page'))
 
 
