@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %} Предсказатель {{ profile.email }} {% endblock %}
+
+{% block content %}
+<h3> Предсказатель {{ profile.email }} </h3>
+<ul>
+<li>Рейтинг: {{ profile.score }}</li>
+</ul>
+
+<p>Участник событий:</p>
+<ul>
+{% for event in events %}
+    <li><a href="/event/{{ event.event_key }}/">{{ event.title }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

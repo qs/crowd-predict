@@ -115,11 +115,25 @@ def get_current_profile():
 @app.route("/")
 def home_page():
     ''' redirects to event page '''
-    for pe in ProfileEvent.objects.all():
-        if pe.dt is None:
-            pe.dt = datetime.now() - timedelta(days=1)
+    for pe in Profile.objects.all():
+        if pe.score is None:
+            pe.score = 0
             pe.save()
     return redirect(url_for('events_page'))
+
+
+@app.route("/profile/")
+def profile_self_page():
+    profile = get_current_profile()
+    return redirect('/profile/%s/' % profile.email)
+
+
+@app.route("/profile/<email>/")
+def profile_page(email):
+    ''' profile '''
+    profile = Profile.objects(email=email).first()
+    events = ProfileEvent.objects.filter(profile=profile).distinct('event')
+    return render_template('profile.html', profile=profile, events=events)
 
 
 @app.route("/events/")
