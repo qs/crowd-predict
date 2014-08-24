@@ -39,7 +39,7 @@ connect(database.path[1:],
 
 
 def render_template(*args, **kwargs):
-    kwargs['profile'] = 'lol'
+    #kwargs['profile'] = 'lol'
     return base_render_template(*args, **kwargs)
 
 
