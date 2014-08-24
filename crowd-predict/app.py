@@ -268,11 +268,8 @@ def event_edit_page(event_key):
                res_points = points
             else:
                res_points = -points
-            print profile.score, res_points
             profile.score = res_points
-            profile.score
             profile.save()
-            profile.score
         return redirect('/event/%s/' % event_key)
     else:  # show forms
         event_key = escape(event_key)
@@ -286,13 +283,21 @@ def event_stat_page(event_key):
     ''' event statistics'''
     event_key = escape(event_key)
     event = Event.objects(event_key=event_key).first()
-    profile_events = ProfileEvent.objects.filter(event=event_key)
+    event_aggr = ProfileEvent._get_collection().aggregate([
+      {"$match": {'event.$id': event_key}},
+      {"$group": {'_id': {'profile': "$profile", 'answers': "$answers"}, 'dt': {"$max": "$dt"}}},
+      {"$sort": {'dt': 1}},
+      {"$group": {
+        '_id': "$_id.profile",
+        'last_answer': { "$last": "$_id.answers"},
+        }
+      }
+    ])
     cntr = Counter()
-    for pe in profile_events:
-        for a in pe.answers:
+    for pe in event_aggr['result']:
+        for a in pe['last_answer']:
             cntr[a] += 1
     answers_stat = [{'name': k, 'value': v} for k, v in dict(cntr).items()]
-    #answers_stat = []
     return render_template('event-stat.html', event=event,
                            answers_stat=answers_stat)
 
