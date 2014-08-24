@@ -4,6 +4,7 @@
 
 {% block content %}
 <h3> Событие: {{ event.title }} </h3>
+<p>[<a href="/event/{{ event.event_key }}/stat/">Статистика</a>]</p>
 <h4> Варианты исхода события </h4>
 {% for aa in event.available_answers %}
     <code><a href="#" role="button" class="av_ans btn btn-default" style="margin:3px;">{{ aa }}</a></code>

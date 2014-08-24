@@ -6,7 +6,8 @@
 <h3> Все события </h3>
 <ul>
     {% for event in events %}
-      <li><a href="/event/{{ event.event_key }}/">{{ event.title }}</a></li>
+      <li><a href="/event/{{ event.event_key }}/">{{ event.title }}</a>
+          [<a href="/event/{{ event.event_key }}/stat/">Статистика</a>] </li>
     {% endfor %}
 
 </ul>
