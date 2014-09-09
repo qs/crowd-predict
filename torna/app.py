@@ -53,6 +53,7 @@ application = tornado.web.Application(SOCIAL_AUTH_ROUTES + [
 
 def main():
     init_social(Base, session, tornado_settings)
+    print tornado_settings
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(8000)
     tornado.ioloop.IOLoop.instance().start()
