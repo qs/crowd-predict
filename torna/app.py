@@ -30,6 +30,7 @@ class MainHandler(tornado.web.RequestHandler):
 class DoneHandler(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
         from models import User
+        print 'lol we are here!!'
         user_id = self.get_secure_cookie('user_id')
         user = session.query(User).get(int(user_id))
         self.render('templates/done.html', user=user)
@@ -53,7 +54,6 @@ application = tornado.web.Application(SOCIAL_AUTH_ROUTES + [
 
 def main():
     init_social(Base, session, tornado_settings)
-    print tornado_settings
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(8000)
     tornado.ioloop.IOLoop.instance().start()
