@@ -1,0 +1,1 @@
+web: gunicorn manage runserver -b "0.0.0.0:$PORT"
