@@ -129,7 +129,11 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.google.GoogleOAuth2',
     'social.backends.twitter.TwitterOAuth',
     'social.backends.facebook.FacebookOAuth2',
+    'social.backends.instagram.InstagramOAuth2',
     'social.backends.vk.VKOAuth2',
+    #'social.backends.email.EmailAuth',
+    #'social.backends.username.UsernameAuth',
+    #'django.contrib.auth.backends.ModelBackend',
 )
 
 LOGIN_URL = '/login/'
