@@ -1,1 +1,1 @@
-web: gunicorn crowd.wsgi
+web: gunicorn project.wsgi

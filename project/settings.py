@@ -1,5 +1,5 @@
 """
-Django settings for crowd project.
+Django settings for project project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%kimd@)33b-gsvbgff8qs4sys+680i0ogk$09fmq#z!wj5v3rf'
+SECRET_KEY = 'n7)u4v#=cbsvse!nf@lh1zv0qsoej!g$95eqkd(7irzr4zn7)5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -48,9 +48,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'crowd.urls'
+ROOT_URLCONF = 'project.urls'
 
-WSGI_APPLICATION = 'crowd.wsgi.application'
+WSGI_APPLICATION = 'project.wsgi.application'
 
 
 # Database
