@@ -1,1 +1,1 @@
-web: gunicorn crowd.wsgi --log-file -
+web: gunicorn crowd.wsgi
