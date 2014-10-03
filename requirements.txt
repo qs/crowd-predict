@@ -7,3 +7,5 @@ pystache==0.5.4
 static==1.0.2
 static3==0.5.1
 wsgiref==0.1.2
+mongoengine>=0.8.6
+python-social-auth
