@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-venv
-*.pyc
-staticfiles
-=======
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -59,4 +54,3 @@ docs/_build/
 
 .idea/
 venv
->>>>>>> b5a0f24f7291070596b1b9ba60e4760426254cde

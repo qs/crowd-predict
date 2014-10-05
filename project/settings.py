@@ -1,12 +1,12 @@
 import mongoengine
 import sys
 from os.path import abspath, dirname, join
+
 from settings_local import *
 
 sys.path.insert(0, '../..')
 ROOT_PATH = abspath(dirname(__file__))
 BASE_DIR = dirname(dirname(__file__))
-
 SECRET_KEY = 'n7)u4v#=cbsvse!nf@lh1zv0qsoej!g$95eqkd(7irzr4zn7)5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -16,14 +16,14 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = (
-    'django.contrib.auth',
+    #'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'mongoengine.django.mongo_auth',
+    'mongoengine.django.auth',
+    #'mongoengine.django.sites',
+    'mongoengine.django.admin',
     'social.apps.django_app.default',
     'social.apps.django_app.me', # this is the line that fails
 )
@@ -44,8 +44,6 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'project.urls'
 WSGI_APPLICATION = 'project.wsgi.application'
-
-SOCIAL_AUTH_USER_MODEL = 'mongoengine.django.auth.User'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -72,7 +70,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
 _MONGODB_HOST = 'localhost'
 _MONGODB_NAME = 'test'
 _MONGODB_DATABASE_HOST = \
@@ -80,8 +77,6 @@ _MONGODB_DATABASE_HOST = \
     % (_MONGODB_HOST, _MONGODB_NAME)
 
 mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
-
-SOCIAL_AUTH_USER_MODEL = 'mongoengine.django.auth.User'
 
 # Auth Stuff
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.me.models.DjangoStorage'
