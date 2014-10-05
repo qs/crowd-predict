@@ -2,11 +2,20 @@ import mongoengine
 import sys
 from os.path import abspath, dirname, join
 
+<<<<<<< HEAD
 from settings_local import *
 
 sys.path.insert(0, '../..')
 ROOT_PATH = abspath(dirname(__file__))
 BASE_DIR = dirname(dirname(__file__))
+=======
+<<<<<<< HEAD
+from settings_local import *
+
+=======
+>>>>>>> b5a0f24f7291070596b1b9ba60e4760426254cde
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+>>>>>>> 7d85a0964f6f3a4958da54f784cb0c297bd28f4a
 SECRET_KEY = 'n7)u4v#=cbsvse!nf@lh1zv0qsoej!g$95eqkd(7irzr4zn7)5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,6 +54,15 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'project.urls'
 WSGI_APPLICATION = 'project.wsgi.application'
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+SOCIAL_AUTH_USER_MODEL = 'mongoengine.django.auth.User'
+
+>>>>>>> b5a0f24f7291070596b1b9ba60e4760426254cde
+>>>>>>> 7d85a0964f6f3a4958da54f784cb0c297bd28f4a
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 DATABASES = {
@@ -70,11 +88,32 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+<<<<<<< HEAD
 _MONGODB_HOST = 'localhost'
 _MONGODB_NAME = 'test'
 _MONGODB_DATABASE_HOST = \
     'mongodb://%s/%s' \
     % (_MONGODB_HOST, _MONGODB_NAME)
+=======
+<<<<<<< HEAD
+_MONGODB_HOST = 'localhost'
+_MONGODB_NAME = 'test'
+_MONGODB_DATABASE_HOST = \
+    'mongodb://%s/%s' \
+    % (_MONGODB_HOST, _MONGODB_NAME)
+=======
+
+SOCIAL_AUTH_USER_MODEL = 'mongoengine.django.auth.User'
+
+_MONGODB_USER = '***'      #real stuf here
+_MONGODB_PASSWD = '***'    #real stuf here
+_MONGODB_HOST = '***'      #real stuf here
+_MONGODB_NAME = '****'     #real stuf here
+_MONGODB_DATABASE_HOST = \
+    'mongodb://%s:%s@%s/%s' \
+    % (_MONGODB_USER, _MONGODB_PASSWD, _MONGODB_HOST, _MONGODB_NAME)
+>>>>>>> b5a0f24f7291070596b1b9ba60e4760426254cde
+>>>>>>> 7d85a0964f6f3a4958da54f784cb0c297bd28f4a
 
 mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
 
