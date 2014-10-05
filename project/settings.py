@@ -1,7 +1,12 @@
-import os
 import mongoengine
+import sys
+from os.path import abspath, dirname, join
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+from settings_local import *
+
+sys.path.insert(0, '../..')
+ROOT_PATH = abspath(dirname(__file__))
+BASE_DIR = dirname(dirname(__file__))
 SECRET_KEY = 'n7)u4v#=cbsvse!nf@lh1zv0qsoej!g$95eqkd(7irzr4zn7)5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -17,6 +22,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.admin',
     'mongoengine.django.mongo_auth',
     'social.apps.django_app.default',
     'social.apps.django_app.me', # this is the line that fails
@@ -39,9 +45,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'project.urls'
 WSGI_APPLICATION = 'project.wsgi.application'
 
-
-SOCIAL_AUTH_USER_MODEL = 'mongoengine.django.auth.User'
-
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 DATABASES = {
@@ -49,6 +52,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.dummy'
     }
 }
+
+TEMPLATE_DIRS = (
+    join(ROOT_PATH, 'templates'),
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -63,16 +70,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
-SOCIAL_AUTH_USER_MODEL = 'mongoengine.django.auth.User'
-
-_MONGODB_USER = '***'      #real stuf here
-_MONGODB_PASSWD = '***'    #real stuf here
-_MONGODB_HOST = '***'      #real stuf here
-_MONGODB_NAME = '****'     #real stuf here
+_MONGODB_HOST = 'localhost'
+_MONGODB_NAME = 'test'
 _MONGODB_DATABASE_HOST = \
-    'mongodb://%s:%s@%s/%s' \
-    % (_MONGODB_USER, _MONGODB_PASSWD, _MONGODB_HOST, _MONGODB_NAME)
+    'mongodb://%s/%s' \
+    % (_MONGODB_HOST, _MONGODB_NAME)
 
 mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
 
